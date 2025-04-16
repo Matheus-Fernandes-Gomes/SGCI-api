@@ -1,5 +1,6 @@
 package br.com.sgci.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -23,8 +24,8 @@ public class Pessoa {
 	private Long id;
 
 	@NotNull
-	@ManyToOne
-	@JoinColumn(name = "ID_endereco")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ID_ENDERECO")
 	private Endereco endereco;
 
 	@NotNull
@@ -50,21 +51,24 @@ public class Pessoa {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "EN_ESTADO_CIVIL")
-	private EstadoCivilEnum estadocivil;
+	private EstadoCivilEnum estadoCivil;
 
-	public Pessoa(@NotNull Endereco endereco,
+	public Pessoa() {}
+	
+	public Pessoa(
+			@NotNull Endereco endereco,
 			@NotNull @Size(max = 255) String nome,
 			@NotNull TipoPessoaEnum tipo,
 			@NotNull @Size(max = 255) String documento,
 			@NotNull @Size(max = 255) String profissao,
-			@NotNull EstadoCivilEnum estadocivil) {
+			@NotNull EstadoCivilEnum estadoCivil) {
 		super();
 		this.endereco = endereco;
 		this.nome = nome;
 		this.tipo = tipo;
 		this.documento = documento;
 		this.profissao = profissao;
-		this.estadocivil = estadocivil;
+		this.estadoCivil = estadoCivil;
 	}
 
 	public Long getId() {
@@ -115,12 +119,12 @@ public class Pessoa {
 		this.profissao = profissao;
 	}
 
-	public EstadoCivilEnum getEstadocivil() {
-		return estadocivil;
+	public EstadoCivilEnum getEstadoCivil() {
+		return estadoCivil;
 	}
 
-	public void setEstadocivil(EstadoCivilEnum estadocivil) {
-		this.estadocivil = estadocivil;
+	public void setEstadoCivil(EstadoCivilEnum estadoCivil) {
+		this.estadoCivil = estadoCivil;
 	}
 
 }
