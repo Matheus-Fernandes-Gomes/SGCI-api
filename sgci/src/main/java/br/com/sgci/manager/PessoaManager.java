@@ -29,7 +29,8 @@ public class PessoaManager {
 				req.endereco().numero()
 				);
 
-		Pessoa pessoa = new Pessoa(endereco, 
+		Pessoa pessoa = new Pessoa(
+				endereco, 
 				req.nome(), req.tipo(), 
 				req.documento(), 
 				req.profissao(),
@@ -38,5 +39,10 @@ public class PessoaManager {
 
 		return pessoaRepository.save(pessoa);
 
+	}
+	@Transactional
+	public void deletePessoa(Long idPessoa) {
+		Pessoa pessoa = pessoaRepository.findById(idPessoa).orElseThrow();
+		pessoaRepository.delete(pessoa);
 	}
 }
